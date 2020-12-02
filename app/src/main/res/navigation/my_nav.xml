@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/fragment_splash_screen">
+
+    <fragment
+        android:id="@+id/fragment_splash_screen"
+        android:name="com.example.andoridproject.SplashScreenFragment"
+        android:label="Splash Screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.andoridproject.MainScreenFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_detailScreenFragment"
+            app:destination="@id/fragment_detail_screen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.andoridproject.ProfileScreenFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile_screen" />
+    <fragment
+        android:id="@+id/fragment_detail_screen"
+        android:name="com.example.andoridproject.DetailScreenFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_detail_screen" />
+</navigation>
