@@ -3,37 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/fragment_splash_screen">
 
     <fragment
-        android:id="@+id/splashScreenFragment"
+        android:id="@+id/fragment_splash_screen"
         android:name="com.example.andoridproject.SplashScreenFragment"
-        android:label="fragment_splash_screen"
+        android:label="Splash Screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/fragment_main_screen" />
     </fragment>
+
     <fragment
-        android:id="@+id/mainScreenFragment"
+        android:id="@+id/fragment_main_screen"
         android:name="com.example.andoridproject.MainScreenFragment"
-        android:label="fragment_main_screen"
+        android:label="Home"
         tools:layout="@layout/fragment_main_screen" >
         <action
             android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
-            app:destination="@id/profileScreenFragment" />
+            app:destination="@id/fragment_profile_screen" />
         <action
             android:id="@+id/action_mainScreenFragment_to_detailScreenFragment"
-            app:destination="@id/detailScreenFragment" />
+            app:destination="@id/fragment_detail_screen" />
     </fragment>
+
     <fragment
-        android:id="@+id/profileScreenFragment"
+        android:id="@+id/fragment_profile_screen"
         android:name="com.example.andoridproject.ProfileScreenFragment"
-        android:label="fragment_profile_screen"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile_screen" />
     <fragment
-        android:id="@+id/detailScreenFragment"
+        android:id="@+id/fragment_detail_screen"
         android:name="com.example.andoridproject.DetailScreenFragment"
-        android:label="fragment_detail_screen"
+        android:label="Details"
         tools:layout="@layout/fragment_detail_screen" />
 </navigation>

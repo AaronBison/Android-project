@@ -4,4 +4,6 @@
     <string name="welcome_to">Welcome to</string>
     <string name="project_title">My Project</string>
     <string name="titleimage">TitleImage</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Profile</string>
 </resources>
