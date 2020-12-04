@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Make it fullscreen
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN;
 
 
         // Bottom navigation setup
