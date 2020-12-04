@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_mainScreenFragment"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"
+            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
 
     <fragment
