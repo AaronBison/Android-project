@@ -27,7 +27,7 @@ class SplashScreenFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_splash_screen, container, false)
 
-        SplashScreenFragment.after(2000) {
+        SplashScreenFragment.after(3000) {
             Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_mainScreenFragment)
         }
 

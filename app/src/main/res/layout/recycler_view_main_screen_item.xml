@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10sp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/restaurantImageView"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:src="@drawable/restaurant_placeholder" />
+
+        <TextView
+            android:id="@+id/restaurantNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:layout_toEndOf="@id/restaurantImageView"
+            android:text="Restaurant's name"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+        <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="50sp"
+            android:layout_height="50dp"
+            android:layout_below="@id/restaurantAddressTextView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40sp"
+            android:contentDescription="FavouriteButton"
+            android:src="@drawable/ic_baseline_info_24" />
+
+        <TextView
+            android:id="@+id/restaurantAddressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantNameTextView"
+            android:layout_marginLeft="40sp"
+            android:layout_toEndOf="@id/restaurantImageView"
+            android:text="Restaurant's address"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/restaurantPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantAddressTextView"
+            android:layout_alignBottom="@+id/restaurantImageView"
+            android:layout_marginLeft="40sp"
+            android:layout_toEndOf="@id/restaurantImageView"
+            android:gravity="end"
+            android:text="£20"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
