@@ -12,6 +12,7 @@
        android:clipToPadding="false"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:background="@color/purple_light"
        tools:listitem="@layout/recycler_view_main_screen_item"/>
 
 </RelativeLayout>
