@@ -50,7 +50,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/restaurantPriceTextView"
+            android:id="@+id/PriceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/restaurantAddressTextView"
@@ -58,6 +58,19 @@
             android:layout_marginLeft="10sp"
             android:layout_marginTop="10sp"
             android:layout_toEndOf="@id/restaurantImageView"
+            android:gravity="center"
+            android:text="Price:"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/restaurantPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantAddressTextView"
+            android:layout_alignBottom="@+id/restaurantImageView"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_toEndOf="@id/PriceTextView"
             android:gravity="center"
             android:text="£20"
             android:textSize="32sp" />

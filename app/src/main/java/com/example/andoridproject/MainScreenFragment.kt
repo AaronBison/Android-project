@@ -67,7 +67,7 @@ class MainScreenFragment : Fragment() {
                 val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
 //                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
 
-                mHandler.post { recyclerView.adapter = MainScreenItemAdapter(mainScreenList) }
+                mHandler.post { recyclerView.adapter = MainScreenItemAdapter(mainScreenList, view!!.context) }
             }
 
             override fun onFailure(call: Call, e: IOException) {
