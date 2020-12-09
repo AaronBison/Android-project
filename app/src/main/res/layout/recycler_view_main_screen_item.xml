@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray">
 
         <ImageView
             android:id="@+id/restaurantImageView"
@@ -35,7 +36,17 @@
             android:layout_marginTop="30sp"
             android:background="@color/white"
             android:contentDescription="FavouriteButton"
-            android:src="@drawable/ic_baseline_star" />
+            android:src="@drawable/ic_baseline_star"
+            android:backgroundTint="@color/gray"/>
+
+        <ImageView
+            android:id="@+id/addressImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_toEndOf="@id/restaurantImageView"
+            android:layout_below="@id/restaurantNameTextView"
+            android:src="@drawable/ic_baseline_location_on_24"/>
 
         <TextView
             android:id="@+id/restaurantAddressTextView"
@@ -44,9 +55,8 @@
             android:layout_below="@id/restaurantNameTextView"
             android:layout_margin="4dp"
             android:layout_marginLeft="40sp"
-            android:layout_toEndOf="@id/restaurantImageView"
+            android:layout_toEndOf="@id/addressImageView"
             android:text="Restaurant's address"
-            android:textColor="@color/gray"
             android:textSize="16sp" />
 
         <TextView
