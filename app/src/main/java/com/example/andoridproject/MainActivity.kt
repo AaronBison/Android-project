@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         // Make it fullscreen
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        supportActionBar?.hide()
 
 
         // Bottom navigation setup
