@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainScreenFragment">
 
    <androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,6 @@
        android:clipToPadding="false"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="@color/purple_light"
        tools:listitem="@layout/recycler_view_main_screen_item"/>
 
-</RelativeLayout>
+</LinearLayout>

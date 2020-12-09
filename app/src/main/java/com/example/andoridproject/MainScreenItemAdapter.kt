@@ -1,5 +1,6 @@
 package com.example.andoridproject
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_main_screen_item.view.*
 
-class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){
+class MainScreenItemAdapter(private val mainScreenList: MainScreenItemList) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenItemViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_main_screen_item, parent, false)
@@ -19,22 +20,20 @@ class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>) : 
     }
 
     override fun onBindViewHolder(holder: MainScreenItemViewHolder, position: Int) {
-        val currentItem = mainScreenList[position]
+        val currentItem = mainScreenList.restaurants[position]
 
-        holder.restaurantImageView.setImageResource(currentItem.imageResource)
-        holder.restaurantNameTextView.text = currentItem.title
+        holder.restaurantNameTextView.text = currentItem.name
         holder.restaurantAddressTextView.text = currentItem.address
         holder.restaurantPriceTextView.text = currentItem.price
-//        holder.favoriteButton.setImageResource(currentItem.imageResource)
+//        holder.restaurantImageView.setImageResource(currentItem.image_url)
     }
 
-    override fun getItemCount() = mainScreenList.size
+    override fun getItemCount() = mainScreenList.restaurants.size
 
     class MainScreenItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val restaurantImageView: ImageView = itemView.restaurantImageView
         val restaurantNameTextView: TextView = itemView.restaurantNameTextView
         val restaurantAddressTextView: TextView = itemView.restaurantAddressTextView
         val restaurantPriceTextView: TextView = itemView.restaurantPriceTextView
-        val favoriteButton: ImageButton = itemView.favoriteButton
     }
 }
