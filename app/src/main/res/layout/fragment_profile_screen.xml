@@ -70,6 +70,7 @@
                 android:text="Address:"/>
 
             <TextView
+                android:id="@+id/adressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -96,6 +97,7 @@
                 android:text="Phone number:"/>
 
             <TextView
+                android:id="@+id/phoneNumberTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -122,6 +124,7 @@
                 android:text="Email:"/>
 
             <TextView
+                android:id="@+id/emailTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
