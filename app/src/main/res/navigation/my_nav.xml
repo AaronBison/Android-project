@@ -47,5 +47,8 @@
         <action
             android:id="@+id/action_fragment_detail_screen_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <argument
+            android:name="currentRestaurant"
+            app:argType="com.example.andoridproject.data.favorite.MainScreenItem" />
     </fragment>
 </navigation>

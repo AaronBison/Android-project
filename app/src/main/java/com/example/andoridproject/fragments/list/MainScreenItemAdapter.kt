@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.andoridproject.R
@@ -32,6 +33,11 @@ class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>, pr
         holder.restaurantNameTextView.text = currentItem.name
         holder.restaurantAddressTextView.text = currentItem.address
         holder.restaurantPriceTextView.text = currentItem.price
+
+        holder.itemView.rowLayout.setOnClickListener{
+            val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount() = mainScreenList.size
