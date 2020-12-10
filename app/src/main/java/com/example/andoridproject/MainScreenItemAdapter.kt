@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.android.synthetic.main.recycler_view_main_screen_item.view.*
 
-class MainScreenItemAdapter(private val mainScreenList: MainScreenItemList, private val context: Context) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){
+class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>, private val context: Context) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenItemViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_main_screen_item, parent, false)
@@ -25,7 +25,7 @@ class MainScreenItemAdapter(private val mainScreenList: MainScreenItemList, priv
     }
 
     override fun onBindViewHolder(holder: MainScreenItemViewHolder, position: Int) {
-        val currentItem = mainScreenList.restaurants[position]
+        val currentItem = mainScreenList[position]
 
         Glide.with(context)
             .load(currentItem.image_url)
@@ -38,7 +38,7 @@ class MainScreenItemAdapter(private val mainScreenList: MainScreenItemList, priv
         holder.restaurantPriceTextView.text = currentItem.price
     }
 
-    override fun getItemCount() = mainScreenList.restaurants.size
+    override fun getItemCount() = mainScreenList.size
 
     class MainScreenItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val restaurantImageView: ImageView = itemView.restaurantImageView

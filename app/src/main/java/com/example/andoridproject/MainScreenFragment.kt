@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.andoridproject.data.FavoriteViewModel
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_main_screen.*
 import okhttp3.*
@@ -21,6 +23,7 @@ class MainScreenFragment : Fragment() {
 
     private lateinit var mRequestResultTextView: TextView
     private val mHandler: Handler = Handler(Looper.getMainLooper())
+    private lateinit var mFavoriteViewModel: FavoriteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +35,17 @@ class MainScreenFragment : Fragment() {
 
         // Creates the recycler view from the list of items
         // LoadRecyclerView()
+
+        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
+        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner,{ MainScreenItem ->
+            recyclerView.adapter = view?.let { MainScreenItemAdapter(MainScreenItem, it.context) }
+        })
+
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        val mainScreenList = generateDummyList(500)
+//        val mainScreenList = generateDummyList(500)
         recyclerView.setHasFixedSize(true)
 
-        recyclerView.adapter = view?.let { MainScreenItemAdapter(mainScreenList, it.context) }
+//        recyclerView.adapter = view?.let { MainScreenItemAdapter(mainScreenList, it.context) }
 
 //        val handler = Handler()
 //        handler.postDelayed({view?.let { Navigation.findNavController(it).navigate(R.id.action_navigation_home_to_fragment_splash_screen) }},3000)

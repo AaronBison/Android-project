@@ -29,8 +29,8 @@ class ProfileScreenFragment : Fragment() {
         insertUserToDatabase()
         //---------------------------
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-        val favorite = Favorite(1,8,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
-        mFavoriteViewModel.addToFavorites(favorite)
+        val restaurant = MainScreenItem(1,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
+        mFavoriteViewModel.addToFavorites(restaurant)
         //---------------------------
 
         mUserViewModel.readUserData.observe(viewLifecycleOwner, Observer { user ->

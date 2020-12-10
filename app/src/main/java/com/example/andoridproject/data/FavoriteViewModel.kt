@@ -4,12 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.andoridproject.MainScreenItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(application: Application): AndroidViewModel(application) {
 
-    val readFavoriteData: LiveData<List<Favorite>>
+    val readFavoriteData: LiveData<List<MainScreenItem>>
     private val repository: FavoriteRepository
 
     init {
@@ -18,7 +19,7 @@ class FavoriteViewModel(application: Application): AndroidViewModel(application)
         readFavoriteData = repository.readFavoriteData
     }
 
-    fun addToFavorites(favorite: Favorite){
+    fun addToFavorites(favorite: MainScreenItem){
         viewModelScope.launch(Dispatchers.IO){
             repository.addToFavorites(favorite)
         }
