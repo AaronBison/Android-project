@@ -31,9 +31,12 @@ class MainScreenFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         // Creates the recycler view from the list of items
-        LoadRecyclerView()
+        // LoadRecyclerView()
         recyclerView.layoutManager = LinearLayoutManager(this.context)
+        val mainScreenList = generateDummyList(500)
         recyclerView.setHasFixedSize(true)
+
+        recyclerView.adapter = view?.let { MainScreenItemAdapter(mainScreenList, it.context) }
 
 //        val handler = Handler()
 //        handler.postDelayed({view?.let { Navigation.findNavController(it).navigate(R.id.action_navigation_home_to_fragment_splash_screen) }},3000)
@@ -46,35 +49,44 @@ class MainScreenFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main_screen, container, false)
     }
 
-    fun LoadRecyclerView() {
+//    fun LoadRecyclerView() {
+//
+//        // Specifying the url for the request
+//        val url = "https://opentable.herokuapp.com/api/restaurants?city=Chicago"
+//        // Setting up a request variable for the specified url
+//        val request = Request.Builder().url(url).build()
+//        // Creating a new OkHttpClient
+//        val client = OkHttpClient()
+//        client.newCall(request).enqueue(object : Callback {
+//
+//
+//            override fun onResponse(call: Call, response: Response) {
+//                val body = response.body?.string()
+////                Log.e("Success", "Successful OkHttp request: $body")
+//
+//                // Setting up a gson variable
+//                val gson = GsonBuilder().create()
+//
+//                val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
+////                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
+//
+////                mHandler.post {
+////                    recyclerView.adapter = MainScreenItemAdapter(mainScreenList, view!!.context)
+////                }
+//            }
+//
+//            override fun onFailure(call: Call, e: IOException) {
+//                Log.e("Failure", "Failed OkHttp request")
+//            }
+//        })
+//    }
 
-        // Specifying the url for the request
-        val url = "https://opentable.herokuapp.com/api/restaurants?city=Chicago"
-        // Setting up a request variable for the specified url
-        val request = Request.Builder().url(url).build()
-        // Creating a new OkHttpClient
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : Callback {
-
-
-            override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-//                Log.e("Success", "Successful OkHttp request: $body")
-
-                // Setting up a gson variable
-                val gson = GsonBuilder().create()
-
-                val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
-//                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
-
-                mHandler.post {
-                    recyclerView.adapter = MainScreenItemAdapter(mainScreenList, view!!.context)
-                }
-            }
-
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("Failure", "Failed OkHttp request")
-            }
-        })
+    private fun generateDummyList(size: Int): MainScreenItemList {
+        val list = ArrayList<MainScreenItem>()
+        for (i in 0 until size) {
+            val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg")
+            list += item
+        }
+        return MainScreenItemList(list)
     }
 }

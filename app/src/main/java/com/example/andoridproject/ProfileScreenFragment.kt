@@ -10,14 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.andoridproject.R
-import com.example.andoridproject.data.Constants
-import com.example.andoridproject.data.User
-import com.example.andoridproject.data.UserViewModel
+import com.example.andoridproject.data.*
 import kotlinx.android.synthetic.main.fragment_profile_screen.*
 
 class ProfileScreenFragment : Fragment() {
    private lateinit var mUserViewModel: UserViewModel
-   private var userList = emptyList<User>()
+   private lateinit var mFavoriteViewModel: FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +27,13 @@ class ProfileScreenFragment : Fragment() {
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         insertUserToDatabase()
+        //---------------------------
+        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
+        val favorite = Favorite(1,8,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
+        mFavoriteViewModel.addToFavorites(favorite)
+        //---------------------------
 
-        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
+        mUserViewModel.readUserData.observe(viewLifecycleOwner, Observer { user ->
             setUserLayout(user)
         })
 
