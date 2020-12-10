@@ -1,4 +1,4 @@
-package com.example.andoridproject.fragments.detail
+package com.example.andoridproject.fragments.modify
 
 import android.os.Bundle
 import android.util.Log
@@ -7,18 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.andoridproject.R
-import com.example.andoridproject.fragments.list.MainScreenFragmentDirections
-import kotlinx.android.synthetic.main.fragment_detail_screen.*
 import kotlinx.android.synthetic.main.fragment_detail_screen.view.*
 import kotlinx.android.synthetic.main.fragment_modify.view.*
 
-class DetailScreenFragment : Fragment() {
+class ModifyFragment : Fragment() {
 
-    private val args by navArgs<DetailScreenFragmentArgs>()
+    private val args by navArgs<ModifyFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,21 +25,20 @@ class DetailScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val view = inflater.inflate(R.layout.fragment_detail_screen, container, false)
-
+        val view =  inflater.inflate(R.layout.fragment_modify, container, false)
 
         Glide.with(this)
-            .load(args.currentRestaurant.image_url)
+            .load(args.modifiableRestaurant.image_url)
             .centerCrop()
             .placeholder(R.drawable.image_placeholder)
-            .into(view.detailImageView)
-        view.detailNameTextView.setText(args.currentRestaurant.name)
-        view.detailAddressTextView.setText(args.currentRestaurant.address)
-        view.detailPriceTextView.setText(args.currentRestaurant.price)
+            .into(view.modifyImageView)
+        view.modifyNameEditText.setText(args.modifiableRestaurant.name)
+        view.modifyAddressEditText.setText(args.modifiableRestaurant.address)
+        view.modifyPriceEditText.setText(args.modifiableRestaurant.price)
 
-        view.modifyButton.setOnClickListener{
-            val action = DetailScreenFragmentDirections.actionFragmentDetailScreenToModifyFragment(args.currentRestaurant)
+
+        view.applyButton.setOnClickListener{
+            val action = ModifyFragmentDirections.actionModifyFragmentToFragmentDetailScreen(args.modifiableRestaurant)
             Navigation.findNavController(view).navigate(action)
         }
 

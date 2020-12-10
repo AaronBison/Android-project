@@ -50,5 +50,20 @@
         <argument
             android:name="currentRestaurant"
             app:argType="com.example.andoridproject.data.favorite.MainScreenItem" />
+        <action
+            android:id="@+id/action_fragment_detail_screen_to_modifyFragment"
+            app:destination="@id/modifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifyFragment"
+        android:name="com.example.andoridproject.fragments.modify.ModifyFragment"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" >
+        <action
+            android:id="@+id/action_modifyFragment_to_fragment_detail_screen"
+            app:destination="@id/fragment_detail_screen" />
+        <argument
+            android:name="modifiableRestaurant"
+            app:argType="com.example.andoridproject.data.favorite.MainScreenItem" />
     </fragment>
 </navigation>

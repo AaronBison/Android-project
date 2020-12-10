@@ -9,4 +9,6 @@
     <string name="title_favourites">Favourites</string>
     <string name="take_me_there">Take me there</string>
     <string name="modify">Modify</string>
+    <string name="apply">Apply</string>
+    <string name="change_image">Change image</string>
 </resources>
