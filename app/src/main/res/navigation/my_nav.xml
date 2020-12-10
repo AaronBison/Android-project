@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_splash_screen"
-        android:name="com.example.andoridproject.SplashScreenFragment"
+        android:name="com.example.andoridproject.fragments.splash.SplashScreenFragment"
         android:label="Splash Screen"
         tools:layout="@layout/fragment_splash_screen"
         app:startDestination="@id/action_splashScreenFragment_to_mainScreenFragment">
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.andoridproject.MainScreenFragment"
+        android:name="com.example.andoridproject.fragments.list.MainScreenFragment"
         android:label="Home"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -36,12 +36,16 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.andoridproject.ProfileScreenFragment"
+        android:name="com.example.andoridproject.fragments.profile.ProfileScreenFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile_screen" />
     <fragment
         android:id="@+id/fragment_detail_screen"
-        android:name="com.example.andoridproject.DetailScreenFragment"
+        android:name="com.example.andoridproject.fragments.detail.DetailScreenFragment"
         android:label="Details"
-        tools:layout="@layout/fragment_detail_screen" />
+        tools:layout="@layout/fragment_detail_screen" >
+        <action
+            android:id="@+id/action_fragment_detail_screen_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

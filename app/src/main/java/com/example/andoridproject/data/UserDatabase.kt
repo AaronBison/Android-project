@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.andoridproject.MainScreenItem
+import com.example.andoridproject.data.favorite.MainScreenItem
+import com.example.andoridproject.data.favorite.FavoriteDao
+import com.example.andoridproject.data.user.User
+import com.example.andoridproject.data.user.UserDao
 
 @Database(entities = [User::class, MainScreenItem::class], version = 1, exportSchema = false)
 abstract class UserDatabase: RoomDatabase() {

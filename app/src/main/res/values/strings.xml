@@ -9,4 +9,6 @@
     <string name="profile_picture">Profile picture</string>
     <string name="title_certification">Certification</string>
     <string name="title_favourites">Favourites</string>
+    <string name="take_me_there">Take me there</string>
+    <string name="modify">Modify</string>
 </resources>

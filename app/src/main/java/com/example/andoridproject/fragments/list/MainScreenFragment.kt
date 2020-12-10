@@ -1,22 +1,20 @@
-package com.example.andoridproject
+package com.example.andoridproject.fragments.list
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.andoridproject.data.FavoriteViewModel
-import com.google.gson.GsonBuilder
+import com.example.andoridproject.R
+import com.example.andoridproject.data.favorite.FavoriteViewModel
+import com.example.andoridproject.data.favorite.MainScreenItem
+import com.example.andoridproject.data.favorite.MainScreenItemList
 import kotlinx.android.synthetic.main.fragment_main_screen.*
-import okhttp3.*
-import java.io.IOException
 
 
 class MainScreenFragment : Fragment() {

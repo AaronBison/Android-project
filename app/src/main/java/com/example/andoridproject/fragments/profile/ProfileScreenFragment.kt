@@ -1,4 +1,4 @@
-package com.example.andoridproject
+package com.example.andoridproject.fragments.profile
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,11 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.andoridproject.R
-import com.example.andoridproject.data.*
+import com.example.andoridproject.data.favorite.FavoriteViewModel
+import com.example.andoridproject.data.favorite.MainScreenItem
+import com.example.andoridproject.data.user.Constants
+import com.example.andoridproject.data.user.User
+import com.example.andoridproject.data.user.UserViewModel
 import kotlinx.android.synthetic.main.fragment_profile_screen.*
 
 class ProfileScreenFragment : Fragment() {

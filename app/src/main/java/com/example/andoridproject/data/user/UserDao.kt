@@ -1,11 +1,10 @@
-package com.example.andoridproject.data
+package com.example.andoridproject.data.user
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import okhttp3.internal.ignoreIoExceptions
 
 // This contains all the methods used for accessing the database, quarries, etc..
 

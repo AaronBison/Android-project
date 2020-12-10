@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/purple"
     android:orientation="vertical"
-    tools:context=".SplashScreenFragment">
+    tools:context=".fragments.splash.SplashScreenFragment">
 
 
     <ImageView

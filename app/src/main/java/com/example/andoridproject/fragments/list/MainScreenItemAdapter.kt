@@ -1,19 +1,15 @@
-package com.example.andoridproject
+package com.example.andoridproject.fragments.list
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.internal.ContextUtils.getActivity
+import com.example.andoridproject.R
+import com.example.andoridproject.data.favorite.MainScreenItem
 import kotlinx.android.synthetic.main.recycler_view_main_screen_item.view.*
 
 class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>, private val context: Context) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){

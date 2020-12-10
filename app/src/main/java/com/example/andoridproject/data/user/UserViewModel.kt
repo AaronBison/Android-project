@@ -1,9 +1,10 @@
-package com.example.andoridproject.data
+package com.example.andoridproject.data.user
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.andoridproject.data.UserDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

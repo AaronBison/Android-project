@@ -1,4 +1,4 @@
-package com.example.andoridproject.data
+package com.example.andoridproject.data.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

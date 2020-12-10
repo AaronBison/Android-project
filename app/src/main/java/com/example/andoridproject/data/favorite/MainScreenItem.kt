@@ -1,4 +1,4 @@
-package com.example.andoridproject
+package com.example.andoridproject.data.favorite
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
