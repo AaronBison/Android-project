@@ -20,8 +20,15 @@ class FavoriteViewModel(application: Application): AndroidViewModel(application)
     }
 
     fun addToFavorites(favorite: MainScreenItem){
+        // This will be ran in a background thread
         viewModelScope.launch(Dispatchers.IO){
             repository.addToFavorites(favorite)
+        }
+    }
+
+    fun updateFavorite(favorite: MainScreenItem){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateFavorite(favorite)
         }
     }
 }

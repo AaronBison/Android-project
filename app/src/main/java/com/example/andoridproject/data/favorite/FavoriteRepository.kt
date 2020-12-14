@@ -2,11 +2,15 @@ package com.example.andoridproject.data.favorite
 
 import androidx.lifecycle.LiveData
 
-class FavoriteRepository(private val restaurantDao: FavoriteDao) {
+class FavoriteRepository(private val favoriteDao: FavoriteDao) {
 
-    val readFavoriteData: LiveData<List<MainScreenItem>> = restaurantDao.readFavoriteData()
+    val readFavoriteData: LiveData<List<MainScreenItem>> = favoriteDao.readFavoriteData()
 
     suspend fun addToFavorites(favorite: MainScreenItem){
-        restaurantDao.addToFavorites(favorite)
+        favoriteDao.addToFavorites(favorite)
+    }
+
+    suspend fun updateFavorite(favorite: MainScreenItem){
+        favoriteDao.updateFavorite(favorite)
     }
 }
