@@ -27,14 +27,16 @@ class ProfileScreenFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_profile_screen, container, false)
 
+        Toast.makeText(requireContext(),"Welcome ${Constants.getUser().name}",Toast.LENGTH_LONG).show()
+
         // Initialize UserViewModel
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        insertUserToDatabase()
+//        insertUserToDatabase()
         //---------------------------
-        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-        val restaurant = MainScreenItem(1,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
-        mFavoriteViewModel.addToFavorites(restaurant)
+//        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
+//        val restaurant = MainScreenItem(1,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
+//        mFavoriteViewModel.addToFavorites(restaurant)
         //---------------------------
 
         mUserViewModel.readUserData.observe(viewLifecycleOwner, Observer { user ->
@@ -46,7 +48,6 @@ class ProfileScreenFragment : Fragment() {
 
     private fun insertUserToDatabase() {
         mUserViewModel.addUser(Constants.getUser())
-        Toast.makeText(requireContext(),"Welcome ${Constants.getUser().name}",Toast.LENGTH_LONG).show()
     }
 
     fun setUserLayout(user: List<User>){

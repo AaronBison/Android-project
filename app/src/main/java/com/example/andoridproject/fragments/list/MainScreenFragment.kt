@@ -3,23 +3,25 @@ package com.example.andoridproject.fragments.list
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.andoridproject.R
 import com.example.andoridproject.data.favorite.FavoriteViewModel
 import com.example.andoridproject.data.favorite.MainScreenItem
 import com.example.andoridproject.data.favorite.MainScreenItemList
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import kotlinx.coroutines.flow.merge
 
 
 class MainScreenFragment : Fragment() {
 
-    private lateinit var mRequestResultTextView: TextView
     private val mHandler: Handler = Handler(Looper.getMainLooper())
     private lateinit var mFavoriteViewModel: FavoriteViewModel
 
@@ -31,19 +33,21 @@ class MainScreenFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // Creates the recycler view from the list of items
-        // LoadRecyclerView()
+        // LoadRecyclerView() -- API error
 
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner,{ MainScreenItem ->
-            recyclerView.adapter = view?.let { MainScreenItemAdapter(MainScreenItem, it.context) }
+
+//        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner,{ MainScreenItem ->
+//            recyclerView.adapter = view?.let { MainScreenItemAdapter(MainScreenItem, it.context) }
+//        })
+
+        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { list ->
+            val mergedList = mergeLists(list,generateDummyList(500))
+
+            recyclerView.layoutManager = LinearLayoutManager(this.context)
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter = view?.let { MainScreenItemAdapter(mergedList, it.context) }
         })
-
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
-//        val mainScreenList = generateDummyList(500)
-        recyclerView.setHasFixedSize(true)
-
-//        recyclerView.adapter = view?.let { MainScreenItemAdapter(mainScreenList, it.context) }
 
 //        val handler = Handler()
 //        handler.postDelayed({view?.let { Navigation.findNavController(it).navigate(R.id.action_navigation_home_to_fragment_splash_screen) }},3000)
@@ -88,12 +92,25 @@ class MainScreenFragment : Fragment() {
 //        })
 //    }
 
-    private fun generateDummyList(size: Int): MainScreenItemList {
+    // Merges the two favorite list from the database with the list that comes from the api, prioritizing the favorite list
+    private fun mergeLists(favoriteList: List<MainScreenItem>, apiList: List<MainScreenItem>): List<MainScreenItem>{
+        val mergedList = ArrayList<MainScreenItem>()
+        for (i in favoriteList){
+            mergedList += i
+        }
+        for (i in apiList){
+            mergedList += i
+        }
+        return mergedList
+    }
+
+    // Generates dummy data
+    private fun generateDummyList(size: Int): List<MainScreenItem> {
         val list = ArrayList<MainScreenItem>()
         for (i in 0 until size) {
             val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg")
             list += item
         }
-        return MainScreenItemList(list)
+        return list
     }
 }
