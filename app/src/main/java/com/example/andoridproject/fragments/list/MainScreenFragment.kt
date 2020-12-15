@@ -7,17 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.andoridproject.R
 import com.example.andoridproject.data.favorite.FavoriteViewModel
 import com.example.andoridproject.data.favorite.MainScreenItem
-import com.example.andoridproject.data.favorite.MainScreenItemList
 import kotlinx.android.synthetic.main.fragment_main_screen.*
-import kotlinx.coroutines.flow.merge
 
 
 class MainScreenFragment : Fragment() {
@@ -99,16 +95,28 @@ class MainScreenFragment : Fragment() {
             mergedList += i
         }
         for (i in apiList){
-            mergedList += i
+            if(!existsInFavoriteList(i, favoriteList)){
+                mergedList += i
+            }
         }
+        Log.e("without duplicant detection","$mergedList")
         return mergedList
+    }
+
+    private fun existsInFavoriteList(item: MainScreenItem, list: List<MainScreenItem>): Boolean{
+        for(i in list){
+            if (i.name == item.name){
+                return true
+            }
+        }
+        return false
     }
 
     // Generates dummy data
     private fun generateDummyList(size: Int): List<MainScreenItem> {
         val list = ArrayList<MainScreenItem>()
         for (i in 0 until size) {
-            val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg")
+            val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg", 0)
             list += item
         }
         return list

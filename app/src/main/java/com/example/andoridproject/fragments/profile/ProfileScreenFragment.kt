@@ -35,7 +35,7 @@ class ProfileScreenFragment : Fragment() {
 //        insertUserToDatabase()
         //---------------------------
 //        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-//        val restaurant = MainScreenItem(1,"Legjobb restaurant","Itt ne","Occsu","https://www.opentable.com/img/restimages/107257.jpg")
+//        val restaurant = MainScreenItem(0,"Legjobb restaurant","itt ne","occso","https://www.opentable.com/img/restimages/107257.jpg",1)
 //        mFavoriteViewModel.addToFavorites(restaurant)
         //---------------------------
 
@@ -50,8 +50,7 @@ class ProfileScreenFragment : Fragment() {
         mUserViewModel.addUser(Constants.getUser())
     }
 
-    fun setUserLayout(user: List<User>){
-        Log.e("Current user", "${user[0]}")
+    private fun setUserLayout(user: List<User>){
         usernameTextView.text = user[0].name
         adressTextView.text = user[0].address
         phoneNumberTextView.text = user[0].phone_number

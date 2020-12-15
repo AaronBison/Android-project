@@ -12,6 +12,9 @@ interface FavoriteDao {
     @Update
     suspend fun updateFavorite(favorite: MainScreenItem)
 
+    @Delete
+    suspend fun deleteFromFavorites(favorite: MainScreenItem)
+
     @Query("SELECT * FROM favorite_table2 ORDER BY id ASC")
     fun readFavoriteData(): LiveData<List<MainScreenItem>>
 }

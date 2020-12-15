@@ -26,6 +26,12 @@ class FavoriteViewModel(application: Application): AndroidViewModel(application)
         }
     }
 
+    fun deleteFromFavorites(favorite: MainScreenItem){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteFromFavorites(favorite)
+        }
+    }
+
     fun updateFavorite(favorite: MainScreenItem){
         viewModelScope.launch(Dispatchers.IO){
             repository.updateFavorite(favorite)

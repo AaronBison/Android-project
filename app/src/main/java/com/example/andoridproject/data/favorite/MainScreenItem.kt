@@ -13,5 +13,6 @@ data class MainScreenItem(
     val name: String,
     val address: String,
     val price: String,
-    val image_url: String
+    val image_url: String,
+    val favorite: Int
 ): Parcelable

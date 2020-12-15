@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10sp"
-    android:id="@+id/rowLayout">
+    app:cardBackgroundColor="#C80707">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,26 +30,24 @@
             android:textSize="18sp"
             android:textStyle="bold|italic" />
 
-        <ImageButton
-            android:id="@+id/favoriteButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <ImageView
+            android:id="@+id/favriteImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_below="@id/restaurantAddressTextView"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30sp"
-            android:background="@color/white"
-            android:contentDescription="FavouriteButton"
-            android:src="@drawable/ic_baseline_star"
-            android:backgroundTint="@color/gray"/>
+            android:layout_marginTop="50sp"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/ic_baseline_red_favorite"/>
 
         <ImageView
             android:id="@+id/addressImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantNameTextView"
             android:layout_marginTop="5sp"
             android:layout_toEndOf="@id/restaurantImageView"
-            android:layout_below="@id/restaurantNameTextView"
-            android:src="@drawable/ic_baseline_location_on_24"/>
+            android:src="@drawable/ic_baseline_location_on_24" />
 
         <TextView
             android:id="@+id/restaurantAddressTextView"

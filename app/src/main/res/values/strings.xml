@@ -13,4 +13,6 @@
     <string name="modify">Modify</string>
     <string name="apply">Apply</string>
     <string name="change_image">Change image</string>
+    <string name="make_favorite">Make favorite</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 </resources>

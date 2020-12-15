@@ -1,19 +1,15 @@
 package com.example.andoridproject.fragments.modify
 
 import android.content.Intent
-import android.net.LinkAddress
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -22,8 +18,6 @@ import com.bumptech.glide.Glide
 import com.example.andoridproject.R
 import com.example.andoridproject.data.favorite.FavoriteViewModel
 import com.example.andoridproject.data.favorite.MainScreenItem
-import com.example.andoridproject.data.favorite.MainScreenItemList
-import com.example.andoridproject.data.user.UserViewModel
 import kotlinx.android.synthetic.main.fragment_modify.*
 import kotlinx.android.synthetic.main.fragment_modify.view.*
 
@@ -109,13 +103,13 @@ class ModifyFragment : Fragment() {
 //        Log.e("IMAGE","$image_url")
 //        Log.e("ImageData", "$imageData")
         if (inputCheck(name, address, price)) {
-            val updatedRestaurant = MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url)
+            val updatedRestaurant = MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
             mFavoriteViewModel.updateFavorite(updatedRestaurant)
             Toast.makeText(requireContext(), "Updated Successfully!",Toast.LENGTH_LONG).show()
-            return MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url)
+            return MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields!",Toast.LENGTH_LONG).show()
-            return MainScreenItem(args.modifiableRestaurant.id, args.modifiableRestaurant.name, args.modifiableRestaurant.address, args.modifiableRestaurant.price, args.modifiableRestaurant.image_url)
+            return MainScreenItem(args.modifiableRestaurant.id, args.modifiableRestaurant.name, args.modifiableRestaurant.address, args.modifiableRestaurant.price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
         }
     }
 

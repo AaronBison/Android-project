@@ -10,6 +10,10 @@ class FavoriteRepository(private val favoriteDao: FavoriteDao) {
         favoriteDao.addToFavorites(favorite)
     }
 
+    suspend fun deleteFromFavorites(favorite: MainScreenItem){
+        favoriteDao.deleteFromFavorites(favorite)
+    }
+
     suspend fun updateFavorite(favorite: MainScreenItem){
         favoriteDao.updateFavorite(favorite)
     }
