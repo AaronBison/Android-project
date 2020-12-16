@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -20,11 +21,14 @@ import com.example.andoridproject.fragments.list.MainScreenFragmentDirections
 import kotlinx.android.synthetic.main.fragment_detail_screen.*
 import kotlinx.android.synthetic.main.fragment_detail_screen.view.*
 import kotlinx.android.synthetic.main.fragment_modify.view.*
+import kotlin.properties.Delegates
 
 class DetailScreenFragment : Fragment() {
 
     private val args by navArgs<DetailScreenFragmentArgs>()
     private lateinit var mFavoriteViewModel: FavoriteViewModel
+    private var aFavorite by Delegates.notNull<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,7 @@ class DetailScreenFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_detail_screen, container, false)
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
+        aFavorite = args.currentRestaurant.favorite
 
         Glide.with(this)
             .load(args.currentRestaurant.image_url)
@@ -47,7 +52,7 @@ class DetailScreenFragment : Fragment() {
         view.detailNameTextView.setText(args.currentRestaurant.name)
         view.detailAddressTextView.setText(args.currentRestaurant.address)
         view.detailPriceTextView.setText(args.currentRestaurant.price)
-        if (args.currentRestaurant.favorite == 1){
+        if (aFavorite == 1){
             view.favoriteButton.setText("Make Unfavorite")
             view.favoriteButton.setBackgroundColor(Color.BLACK)
             view.favoriteButton.setTextColor(Color.WHITE)
@@ -58,17 +63,23 @@ class DetailScreenFragment : Fragment() {
         }
 
         view.modifyButton.setOnClickListener{
-            val action = DetailScreenFragmentDirections.actionFragmentDetailScreenToModifyFragment(args.currentRestaurant)
-            Navigation.findNavController(view).navigate(action)
+            if(aFavorite == 1){
+                val action = DetailScreenFragmentDirections.actionFragmentDetailScreenToModifyFragment(args.currentRestaurant)
+                Navigation.findNavController(view).navigate(action)
+            }else{
+                Toast.makeText(requireContext(),"You can modify only favorite restaurants!",Toast.LENGTH_SHORT).show()
+            }
         }
 
         view.favoriteButton.setOnClickListener{
-            if(args.currentRestaurant.favorite == 0){
-                mFavoriteViewModel.addToFavorites(MainScreenItem(args.currentRestaurant.id,args.currentRestaurant.name,args.currentRestaurant.address,args.currentRestaurant.price,args.currentRestaurant.image_url, 1))
+            if(aFavorite == 0){
+                aFavorite = 1
+                mFavoriteViewModel.addToFavorites(MainScreenItem(args.currentRestaurant.id,args.currentRestaurant.name,args.currentRestaurant.address,args.currentRestaurant.price,args.currentRestaurant.image_url, aFavorite))
                 view.favoriteButton.setText("Make Unfavorite")
                 view.favoriteButton.setBackgroundColor(Color.BLACK)
                 view.favoriteButton.setTextColor(Color.WHITE)
             }else{
+                aFavorite = 0
                 mFavoriteViewModel.deleteFromFavorites(args.currentRestaurant)
                 view.favoriteButton.setText("Make favorite")
                 view.favoriteButton.setBackgroundColor(Color.WHITE)

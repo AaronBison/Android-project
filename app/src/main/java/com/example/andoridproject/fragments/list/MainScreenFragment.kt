@@ -99,7 +99,6 @@ class MainScreenFragment : Fragment() {
                 mergedList += i
             }
         }
-        Log.e("without duplicant detection","$mergedList")
         return mergedList
     }
 
