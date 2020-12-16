@@ -134,13 +134,21 @@
         android:orientation="vertical"
         android:padding="20sp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24sp"
+            android:text="@string/title_favourites"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profileRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
             android:clipToPadding="false"
-            android:padding="4sp" />
+            android:padding="4sp"
+            tools:listitem="@layout/recylcer_view_profile_item" />
 
 
     </LinearLayout>

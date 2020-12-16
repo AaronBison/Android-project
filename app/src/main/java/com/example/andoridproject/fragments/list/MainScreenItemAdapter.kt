@@ -38,9 +38,9 @@ class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>, pr
         holder.restaurantAddressTextView.text = currentItem.address
         holder.restaurantPriceTextView.text = currentItem.price
         if(currentItem.favorite == 1){
-            holder.itemView.favriteImageView.setBackgroundResource(R.drawable.ic_baseline_red_favorite)
+            holder.itemView.favoriteImageView.setBackgroundResource(R.drawable.ic_baseline_red_favorite)
         }else{
-            holder.itemView.favriteImageView.setBackgroundResource(R.drawable.ic_baseline_shadow_favorite)
+            holder.itemView.favoriteImageView.setBackgroundResource(R.drawable.ic_baseline_shadow_favorite)
         }
 
         // Navigate to Detail Fragment when clicked on item

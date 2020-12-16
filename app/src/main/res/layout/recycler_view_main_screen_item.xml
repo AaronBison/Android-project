@@ -31,7 +31,7 @@
             android:textStyle="bold|italic" />
 
         <ImageView
-            android:id="@+id/favriteImageView"
+            android:id="@+id/favoriteImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@id/restaurantAddressTextView"
