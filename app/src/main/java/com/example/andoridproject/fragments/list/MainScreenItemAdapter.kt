@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.recycler_view_main_screen_item.view.*
 
 class MainScreenItemAdapter(private val mainScreenList: List<MainScreenItem>, private val context: Context) : RecyclerView.Adapter<MainScreenItemAdapter.MainScreenItemViewHolder>(){
 
-    private  lateinit var mFavoriteViewModel: FavoriteViewModel
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenItemViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_main_screen_item, parent, false)
 
