@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/modifyFragment"
         android:name="com.example.andoridproject.fragments.modify.ModifyFragment"
-        android:label="fragment_modify"
+        android:label="Modify"
         tools:layout="@layout/fragment_modify" >
         <action
             android:id="@+id/action_modifyFragment_to_fragment_detail_screen"

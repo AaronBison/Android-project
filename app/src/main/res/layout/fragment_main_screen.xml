@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".fragments.list.MainScreenFragment">
 
+   <SearchView
+      android:id="@+id/mainScreenItemSV"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@drawable/searchview_design"
+       android:layout_margin="10sp"/>
+
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recyclerView"
        android:padding="4sp"
