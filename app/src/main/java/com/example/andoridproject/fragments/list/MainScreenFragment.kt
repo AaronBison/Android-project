@@ -42,36 +42,7 @@ class MainScreenFragment : Fragment() {
         mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { favoriteList ->
             val mergedList = mergeLists(favoriteList, apiList)
 
-            val searchView = mainScreenItemSV
-            val mergedDisplayList = ArrayList<MainScreenItem>(mergedList)
-
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if(newText!!.isNotEmpty()){
-                        mergedDisplayList.clear()
-                        val search = newText.toLowerCase(Locale.getDefault())
-
-                        mergedList.forEach{
-                            if(it.name.toLowerCase(Locale.getDefault()).contains(search)){
-                                mergedDisplayList.add(it)
-                            }
-                        }
-
-                        // Notifies the recycler view to reload, because data has changed in the list
-                        recyclerView.adapter!!.notifyDataSetChanged()
-                    }else{
-                        mergedDisplayList.clear()
-                        mergedDisplayList.addAll(mergedList)
-                        recyclerView.adapter!!.notifyDataSetChanged()
-                    }
-                    return true
-                }
-
-            })
+            val mergedDisplayList = searchViewManager(mergedList)
 
             recyclerView.layoutManager = LinearLayoutManager(this.context)
             recyclerView.setHasFixedSize(true)
@@ -119,7 +90,41 @@ class MainScreenFragment : Fragment() {
 //        })
 //    }
 
+    // Recreates a correct list based on the search text
+    private fun searchViewManager(mergedList: List<MainScreenItem>): ArrayList<MainScreenItem>{
 
+        val searchView = mainScreenItemSV
+        val mergedDisplayList = ArrayList<MainScreenItem>(mergedList)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText!!.isNotEmpty()){
+                    mergedDisplayList.clear()
+                    val search = newText.toLowerCase(Locale.getDefault())
+
+                    mergedList.forEach{
+                        if(it.name.toLowerCase(Locale.getDefault()).contains(search)){
+                            mergedDisplayList.add(it)
+                        }
+                    }
+
+                    // Notifies the recycler view to reload, because data has changed in the list
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                }else{
+                    mergedDisplayList.clear()
+                    mergedDisplayList.addAll(mergedList)
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                }
+                return true
+            }
+        })
+
+        return mergedDisplayList
+    }
 
 
     // Merges the two favorite list from the database with the list that comes from the api, prioritizing the favorite list
