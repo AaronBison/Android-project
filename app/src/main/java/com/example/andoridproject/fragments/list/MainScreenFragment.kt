@@ -7,8 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.SearchView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +21,6 @@ import kotlin.collections.ArrayList
 
 class MainScreenFragment : Fragment() {
 
-    private val mHandler: Handler = Handler(Looper.getMainLooper())
     private lateinit var mFavoriteViewModel: FavoriteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,20 +34,15 @@ class MainScreenFragment : Fragment() {
 
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-
         val apiList = generateDummyList(20)
 
+        // Filling up the recycler view
         mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { favoriteList ->
             val mergedList = mergeLists(favoriteList, apiList)
-
-            val mergedDisplayList = searchViewManager(mergedList)
-
-            recyclerView.layoutManager = LinearLayoutManager(this.context)
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = view?.let { MainScreenItemAdapter(mergedDisplayList, it.context) }
+            filterManager(mergedList)
         })
 
-  }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,31 +83,82 @@ class MainScreenFragment : Fragment() {
 //        })
 //    }
 
+    // Handles the spinner and sets the search field according to it
+    private fun filterManager(mergedList: List<MainScreenItem>){
+
+        val pricesList = arrayOf("Name", "Address", "Price")
+            val arrayAdapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, pricesList)
+            mainScreenSpinner.adapter = arrayAdapter
+
+            mainScreenSpinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val searchBy = pricesList[position]
+                    Toast.makeText(requireContext(), searchBy, Toast.LENGTH_SHORT).show()
+                    val searchedList = searchViewManager(mergedList, searchBy)
+
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    recyclerView.setHasFixedSize(true)
+                    recyclerView.adapter = view?.let { MainScreenItemAdapter(searchedList, it.context) }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Toast.makeText(requireContext(), "Nothing is selected!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+    }
+
     // Recreates a correct list based on the search text
-    private fun searchViewManager(mergedList: List<MainScreenItem>): ArrayList<MainScreenItem>{
+    private fun searchViewManager(
+        mergedList: List<MainScreenItem>,
+        searchBy: String
+    ): ArrayList<MainScreenItem> {
 
         val searchView = mainScreenItemSV
         val mergedDisplayList = ArrayList<MainScreenItem>(mergedList)
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if(newText!!.isNotEmpty()){
+                if (newText!!.isNotEmpty()) {
                     mergedDisplayList.clear()
                     val search = newText.toLowerCase(Locale.getDefault())
 
-                    mergedList.forEach{
-                        if(it.name.toLowerCase(Locale.getDefault()).contains(search)){
-                            mergedDisplayList.add(it)
+                    mergedList.forEach {
+                        when (searchBy.toLowerCase(Locale.getDefault())) {
+                            "name" -> if (it.name.toLowerCase(Locale.getDefault())
+                                    .contains(search)
+                            ) {
+                                mergedDisplayList.add(it)
+                            }
+                            "address" -> if (it.address.toLowerCase(Locale.getDefault())
+                                    .contains(search)
+                            ) {
+                                mergedDisplayList.add(it)
+                            }
+                            "price" -> if (it.price.toLowerCase(Locale.getDefault())
+                                    .contains(search)
+                            ) {
+                                mergedDisplayList.add(it)
+                            }
                         }
                     }
 
                     // Notifies the recycler view to reload, because data has changed in the list
                     recyclerView.adapter!!.notifyDataSetChanged()
-                }else{
+                } else {
                     mergedDisplayList.clear()
                     mergedDisplayList.addAll(mergedList)
                     recyclerView.adapter!!.notifyDataSetChanged()
@@ -128,13 +172,16 @@ class MainScreenFragment : Fragment() {
 
 
     // Merges the two favorite list from the database with the list that comes from the api, prioritizing the favorite list
-    private fun mergeLists(favoriteList: List<MainScreenItem>, apiList: List<MainScreenItem>): List<MainScreenItem>{
+    private fun mergeLists(
+        favoriteList: List<MainScreenItem>,
+        apiList: List<MainScreenItem>
+    ): List<MainScreenItem> {
         val mergedList = ArrayList<MainScreenItem>()
-        for (i in favoriteList){
+        for (i in favoriteList) {
             mergedList += i
         }
-        for (i in apiList){
-            if(!existsInFavoriteList(i, favoriteList)){
+        for (i in apiList) {
+            if (!existsInFavoriteList(i, favoriteList)) {
                 mergedList += i
             }
         }
@@ -142,9 +189,9 @@ class MainScreenFragment : Fragment() {
     }
 
     // Assistant function -- checks if an items name already exist in a given list
-    private fun existsInFavoriteList(item: MainScreenItem, list: List<MainScreenItem>): Boolean{
-        for(i in list){
-            if (i.name == item.name){
+    private fun existsInFavoriteList(item: MainScreenItem, list: List<MainScreenItem>): Boolean {
+        for (i in list) {
+            if (i.name == item.name) {
                 return true
             }
         }
@@ -155,11 +202,35 @@ class MainScreenFragment : Fragment() {
     private fun generateDummyList(size: Int): List<MainScreenItem> {
         val list = ArrayList<MainScreenItem>()
         for (i in 0 until size) {
-            val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg", 0)
+            val item = MainScreenItem(
+                0,
+                "Restaurant nr. $i",
+                "Address nr. $i",
+                "${i.rem(4) + 1}",
+                "https://www.opentable.com/img/restimages/107257.jpg",
+                0
+            )
             list += item
         }
-        val item = MainScreenItem(0, "Testaurant!", "Address nr. 666","666","https://www.opentable.com/img/restimages/107257.jpg", 0)
+        var item = MainScreenItem(
+            0,
+            "Testaurant!",
+            "Address nr. 666",
+            "4",
+            "https://www.opentable.com/img/restimages/107257.jpg",
+            0
+        )
         list += item
+        item = MainScreenItem(
+            0,
+            "Testaurant!999",
+            "Address nr. 999",
+            "3",
+            "https://www.opentable.com/img/restimages/107257.jpg",
+            0
+        )
+        list += item
+
         return list
     }
 }
