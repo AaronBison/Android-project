@@ -1,12 +1,14 @@
 package com.example.andoridproject.fragments.list
 
-import android.os.Bundle
+import  android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,8 @@ import com.example.andoridproject.R
 import com.example.andoridproject.data.favorite.FavoriteViewModel
 import com.example.andoridproject.data.favorite.MainScreenItem
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainScreenFragment : Fragment() {
@@ -23,7 +27,6 @@ class MainScreenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -33,21 +36,49 @@ class MainScreenFragment : Fragment() {
 
         mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-//        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner,{ MainScreenItem ->
-//            recyclerView.adapter = view?.let { MainScreenItemAdapter(MainScreenItem, it.context) }
-//        })
 
-        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { list ->
-            val mergedList = mergeLists(list,generateDummyList(500))
+        val apiList = generateDummyList(20)
+
+        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { favoriteList ->
+            val mergedList = mergeLists(favoriteList, apiList)
+
+            val searchView = mainScreenItemSV
+            val mergedDisplayList = ArrayList<MainScreenItem>(mergedList)
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if(newText!!.isNotEmpty()){
+                        mergedDisplayList.clear()
+                        val search = newText.toLowerCase(Locale.getDefault())
+
+                        mergedList.forEach{
+                            if(it.name.toLowerCase(Locale.getDefault()).contains(search)){
+                                mergedDisplayList.add(it)
+                            }
+                        }
+
+                        // Notifies the recycler view to reload, because data has changed in the list
+                        recyclerView.adapter!!.notifyDataSetChanged()
+                    }else{
+                        mergedDisplayList.clear()
+                        mergedDisplayList.addAll(mergedList)
+                        recyclerView.adapter!!.notifyDataSetChanged()
+                    }
+                    return true
+                }
+
+            })
 
             recyclerView.layoutManager = LinearLayoutManager(this.context)
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = view?.let { MainScreenItemAdapter(mergedList, it.context) }
+            recyclerView.adapter = view?.let { MainScreenItemAdapter(mergedDisplayList, it.context) }
         })
 
-//        val handler = Handler()
-//        handler.postDelayed({view?.let { Navigation.findNavController(it).navigate(R.id.action_navigation_home_to_fragment_splash_screen) }},3000)
-    }
+  }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,6 +119,9 @@ class MainScreenFragment : Fragment() {
 //        })
 //    }
 
+
+
+
     // Merges the two favorite list from the database with the list that comes from the api, prioritizing the favorite list
     private fun mergeLists(favoriteList: List<MainScreenItem>, apiList: List<MainScreenItem>): List<MainScreenItem>{
         val mergedList = ArrayList<MainScreenItem>()
@@ -102,6 +136,7 @@ class MainScreenFragment : Fragment() {
         return mergedList
     }
 
+    // Assistant function -- checks if an items name already exist in a given list
     private fun existsInFavoriteList(item: MainScreenItem, list: List<MainScreenItem>): Boolean{
         for(i in list){
             if (i.name == item.name){
@@ -118,6 +153,8 @@ class MainScreenFragment : Fragment() {
             val item = MainScreenItem(0, "Restaurant nr. ${i}", "Address nr. ${i}","$i","https://www.opentable.com/img/restimages/107257.jpg", 0)
             list += item
         }
+        val item = MainScreenItem(0, "Testaurant!", "Address nr. 666","666","https://www.opentable.com/img/restimages/107257.jpg", 0)
+        list += item
         return list
     }
 }
