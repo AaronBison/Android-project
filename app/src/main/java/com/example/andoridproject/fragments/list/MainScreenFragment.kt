@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.andoridproject.R
 import com.example.andoridproject.data.favorite.FavoriteViewModel
 import com.example.andoridproject.data.favorite.MainScreenItem
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_main_screen.*
+import okhttp3.*
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,6 +25,7 @@ import kotlin.collections.ArrayList
 class MainScreenFragment : Fragment() {
 
     private lateinit var mFavoriteViewModel: FavoriteViewModel
+    private val mHandler: Handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +34,7 @@ class MainScreenFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // LoadRecyclerView() -- API error
-
-        mFavoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-
-        val apiList = generateDummyList(20)
-
-        // Filling up the recycler view
-        mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { favoriteList ->
-            val mergedList = mergeLists(favoriteList, apiList)
-            filterManager(mergedList)
-        })
+         loadRecyclerView()
 
     }
 
@@ -51,37 +45,40 @@ class MainScreenFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main_screen, container, false)
     }
 
-//    fun LoadRecyclerView() {
-//
-//        // Specifying the url for the request
-//        val url = "https://opentable.herokuapp.com/api/restaurants?city=Chicago"
-//        // Setting up a request variable for the specified url
-//        val request = Request.Builder().url(url).build()
-//        // Creating a new OkHttpClient
-//        val client = OkHttpClient()
-//        client.newCall(request).enqueue(object : Callback {
-//
-//
-//            override fun onResponse(call: Call, response: Response) {
-//                val body = response.body?.string()
-////                Log.e("Success", "Successful OkHttp request: $body")
-//
-//                // Setting up a gson variable
-//                val gson = GsonBuilder().create()
-//
-//                val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
-////                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
-//
-////                mHandler.post {
-////                    recyclerView.adapter = MainScreenItemAdapter(mainScreenList, view!!.context)
-////                }
-//            }
-//
-//            override fun onFailure(call: Call, e: IOException) {
-//                Log.e("Failure", "Failed OkHttp request")
-//            }
-//        })
-//    }
+    private fun loadRecyclerView() {
+
+        // Specifying the url for the request
+        val url = "https://ratpark-api.imok.space/restaurants/"
+        // Setting up a request variable for the specified url
+        val request = Request.Builder().url(url).build()
+        // Creating a new OkHttpClient
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+
+                // Setting up a gson variable
+                val gson = GsonBuilder().create()
+
+                val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
+                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
+
+                mHandler.post {
+                    mFavoriteViewModel = ViewModelProvider(this@MainScreenFragment).get(FavoriteViewModel::class.java)
+
+                    mFavoriteViewModel.readFavoriteData.observe(viewLifecycleOwner, { favoriteList ->
+                        val mergedList = mergeLists(favoriteList, mainScreenList.restaurants)
+                        filterManager(mergedList)
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("Failure", "Failed OkHttp request")
+            }
+        })
+    }
 
     // Handles the spinner and sets the search field according to it
     private fun filterManager(mergedList: List<MainScreenItem>){
@@ -100,7 +97,6 @@ class MainScreenFragment : Fragment() {
                     id: Long
                 ) {
                     val searchBy = pricesList[position]
-                    Toast.makeText(requireContext(), searchBy, Toast.LENGTH_SHORT).show()
                     val searchedList = searchViewManager(mergedList, searchBy)
 
                     recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -199,38 +195,38 @@ class MainScreenFragment : Fragment() {
     }
 
     // Generates dummy data
-    private fun generateDummyList(size: Int): List<MainScreenItem> {
-        val list = ArrayList<MainScreenItem>()
-        for (i in 0 until size) {
-            val item = MainScreenItem(
-                0,
-                "Restaurant nr. $i",
-                "Address nr. $i",
-                "${i.rem(4) + 1}",
-                "https://www.opentable.com/img/restimages/107257.jpg",
-                0
-            )
-            list += item
-        }
-        var item = MainScreenItem(
-            0,
-            "Testaurant!",
-            "Address nr. 666",
-            "4",
-            "https://www.opentable.com/img/restimages/107257.jpg",
-            0
-        )
-        list += item
-        item = MainScreenItem(
-            0,
-            "Testaurant!999",
-            "Address nr. 999",
-            "3",
-            "https://www.opentable.com/img/restimages/107257.jpg",
-            0
-        )
-        list += item
-
-        return list
-    }
+//    private fun generateDummyList(size: Int): List<MainScreenItem> {
+//        val list = ArrayList<MainScreenItem>()
+//        for (i in 0 until size) {
+//            val item = MainScreenItem(
+//                0,
+//                "Restaurant nr. $i",
+//                "Address nr. $i",
+//                "${i.rem(4) + 1}",
+//                "https://www.opentable.com/img/restimages/107257.jpg",
+//                0
+//            )
+//            list += item
+//        }
+//        var item = MainScreenItem(
+//            0,
+//            "Testaurant!",
+//            "Address nr. 666",
+//            "4",
+//            "https://www.opentable.com/img/restimages/107257.jpg",
+//            0
+//        )
+//        list += item
+//        item = MainScreenItem(
+//            0,
+//            "Testaurant!999",
+//            "Address nr. 999",
+//            "3",
+//            "https://www.opentable.com/img/restimages/107257.jpg",
+//            0
+//        )
+//        list += item
+//
+//        return list
+//    }
 }

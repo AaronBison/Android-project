@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.list.MainScreenFragment">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:paddingHorizontal="10sp"
-       android:paddingTop="10sp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple"
+        android:orientation="horizontal"
+        android:padding="10sp">
 
-      <Spinner
-          android:id="@+id/mainScreenSpinner"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_marginEnd="10sp"
-          android:background="@drawable/searchview_design"
-          android:dropDownWidth="match_parent"
-          android:padding="10sp"/>
+        <Spinner
+            android:id="@+id/mainScreenSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/searchview_design"
+            android:backgroundTint="@color/white"
+            android:dropDownWidth="match_parent"
+            android:padding="10sp"/>
 
-      <SearchView
-          android:id="@+id/mainScreenItemSV"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@drawable/searchview_design"/>
+        <SearchView
+            android:id="@+id/mainScreenItemSV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/searchview_design"
+            android:backgroundTint="@color/white" />
 
 
-   </LinearLayout>
+    </LinearLayout>
 
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/recyclerView"
-       android:padding="4sp"
-       android:clipToPadding="false"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_marginBottom="50dp"
-       tools:listitem="@layout/recycler_view_main_screen_item"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:clipToPadding="false"
+        android:padding="4sp"
+        tools:listitem="@layout/recycler_view_main_screen_item" />
 
 </LinearLayout>
