@@ -63,7 +63,7 @@ class MainScreenFragment : Fragment() {
                 val gson = GsonBuilder().create()
 
                 val mainScreenList = gson.fromJson(body, MainScreenItemList::class.java)
-                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
+//                Log.e("Success", "Successful Gson operation: ${mainScreenList.restaurants[0].name}")
 
                 mHandler.post {
                     mFavoriteViewModel = ViewModelProvider(this@MainScreenFragment).get(FavoriteViewModel::class.java)

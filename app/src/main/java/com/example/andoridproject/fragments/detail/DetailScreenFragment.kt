@@ -1,6 +1,8 @@
 package com.example.andoridproject.fragments.detail
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -74,7 +76,7 @@ class DetailScreenFragment : Fragment() {
         view.favoriteButton.setOnClickListener{
             if(aFavorite == 0){
                 aFavorite = 1
-                mFavoriteViewModel.addToFavorites(MainScreenItem(args.currentRestaurant.id,args.currentRestaurant.name,args.currentRestaurant.address,args.currentRestaurant.price,args.currentRestaurant.image_url, aFavorite))
+                mFavoriteViewModel.addToFavorites(MainScreenItem(args.currentRestaurant.id,args.currentRestaurant.name,args.currentRestaurant.address,args.currentRestaurant.price,args.currentRestaurant.image_url, aFavorite, args.currentRestaurant.lat, args.currentRestaurant.lng))
                 view.favoriteButton.setText("Make Unfavorite")
                 view.favoriteButton.setBackgroundColor(Color.BLACK)
                 view.favoriteButton.setTextColor(Color.WHITE)
@@ -87,6 +89,13 @@ class DetailScreenFragment : Fragment() {
             }
         }
 
+        view.takeMeThereButton.setOnClickListener{
+            // Start Google maps with given latitude and longitude
+            val gmmIntentUri = Uri.parse("geo:${args.currentRestaurant.lat},${args.currentRestaurant.lng}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
 
         return view
     }

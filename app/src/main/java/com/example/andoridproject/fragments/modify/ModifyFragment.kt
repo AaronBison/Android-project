@@ -103,13 +103,13 @@ class ModifyFragment : Fragment() {
 //        Log.e("IMAGE","$image_url")
 //        Log.e("ImageData", "$imageData")
         if (inputCheck(name, address, price)) {
-            val updatedRestaurant = MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
+            val updatedRestaurant = MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite, args.modifiableRestaurant.lat, args.modifiableRestaurant.lng)
             mFavoriteViewModel.updateFavorite(updatedRestaurant)
             Toast.makeText(requireContext(), "Updated Successfully!",Toast.LENGTH_LONG).show()
-            return MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
+            return MainScreenItem(args.modifiableRestaurant.id, name, address, price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite, args.modifiableRestaurant.lat, args.modifiableRestaurant.lng)
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields!",Toast.LENGTH_LONG).show()
-            return MainScreenItem(args.modifiableRestaurant.id, args.modifiableRestaurant.name, args.modifiableRestaurant.address, args.modifiableRestaurant.price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite)
+            return MainScreenItem(args.modifiableRestaurant.id, args.modifiableRestaurant.name, args.modifiableRestaurant.address, args.modifiableRestaurant.price, args.modifiableRestaurant.image_url,args.modifiableRestaurant.favorite, args.modifiableRestaurant.lat, args.modifiableRestaurant.lng)
         }
     }
 
