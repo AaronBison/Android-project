@@ -45,6 +45,7 @@ class MainScreenFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main_screen, container, false)
     }
 
+    // Creates okHttp client, receives the response and sends it to processing function
     private fun loadRecyclerView() {
 
         // Specifying the url for the request
@@ -193,40 +194,4 @@ class MainScreenFragment : Fragment() {
         }
         return false
     }
-
-    // Generates dummy data
-//    private fun generateDummyList(size: Int): List<MainScreenItem> {
-//        val list = ArrayList<MainScreenItem>()
-//        for (i in 0 until size) {
-//            val item = MainScreenItem(
-//                0,
-//                "Restaurant nr. $i",
-//                "Address nr. $i",
-//                "${i.rem(4) + 1}",
-//                "https://www.opentable.com/img/restimages/107257.jpg",
-//                0
-//            )
-//            list += item
-//        }
-//        var item = MainScreenItem(
-//            0,
-//            "Testaurant!",
-//            "Address nr. 666",
-//            "4",
-//            "https://www.opentable.com/img/restimages/107257.jpg",
-//            0
-//        )
-//        list += item
-//        item = MainScreenItem(
-//            0,
-//            "Testaurant!999",
-//            "Address nr. 999",
-//            "3",
-//            "https://www.opentable.com/img/restimages/107257.jpg",
-//            0
-//        )
-//        list += item
-//
-//        return list
-//    }
 }
